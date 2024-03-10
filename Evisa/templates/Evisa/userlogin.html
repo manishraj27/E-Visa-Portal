@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <style>
+        body {
+            background-image: url('https://media.licdn.com/dms/image/D5612AQHczm0rxEGc8g/article-cover_image-shrink_720_1280/0/1693215051019?e=2147483647&v=beta&t=VxQy42m53yBOoBDOUHJlFNPcHGHF9M1fqWVv-2OYCpI');
+            background-size: cover;
+            display: flex;
+            justify-content: flex-end; /* Aligning the login box to the right */
+            align-items: flex-start; /* Aligning the login box to the top */
+            height: 100vh;
+            margin: 0;
+            padding-top: 20px; /* Adding some padding to push the login box down */
+        }
+
+        .login-box {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .login-box h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+
+        .login-box input[type="text"],
+        .login-box input[type="password"],
+        .login-box input[type="email"],
+        .login-box input[type="number"] { /* Added number field for CAPTCHA */
+            width: calc(100% - 22px);
+            padding: 12px 10px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            transition: border-color 0.3s;
+        }
+
+        .login-box input[type="text"]:focus,
+        .login-box input[type="password"]:focus,
+        .login-box input[type="email"]:focus,
+        .login-box input[type="number"]:focus { /* Added focus styling for all fields */
+            border-color: #007bff;
+        }
+
+        .login-box input[type="submit"] {
+            width: 100%;
+            padding: 12px 0;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .login-box input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        /* Styling for the "New user sign up" link */
+        .signup-link {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .signup-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Styling for the CAPTCHA box */
+        .captcha-box {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+    <h2>Login</h2>
+    <form method="POST" action="{% url 'user_login' %}"> <!-- Updated form action -->
+        {% csrf_token %}
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <input type="submit" value="Login">
+    </form>
+    <div class="signup-link">
+        <a href="{% url 'user_signup' %}">New user sign up</a>
+    </div>
+</div>
+
+    <script>
+        // Generating and displaying random CAPTCHA
+        window.addEventListener('DOMContentLoaded', function() {
+            var captchaBox = document.getElementById('captcha-box');
+            var captcha = Math.floor(1000 + Math.random() * 9000); // Generate random 4-digit number
+            captchaBox.innerText = 'CAPTCHA: ' + captcha;
+        });
+    </script>
+</body>
+</html>
